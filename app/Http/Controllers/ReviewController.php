@@ -48,7 +48,7 @@ class ReviewController extends Controller
             ->exists();
         // Если пользователь уже оставлял отзыв, возвращаем сообщение об ошибке
         if ($existingReview) {
-            throw new ApiException(403, 'Вы уже оставили отзыв на этот товар');
+            throw new ApiException(409, 'Вы уже оставили отзыв на этот товар');
 
         }
         // Сохранение нового отзыва

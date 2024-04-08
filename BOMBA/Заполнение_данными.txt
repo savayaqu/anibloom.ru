@@ -7,7 +7,7 @@ INSERT INTO `users` (`id`, `name`, `surname`, `patronymic`, `login`, `password`,
 (3, 'Александр', 'Сидоров', 'Александрович', 'alex', 'Alex123@', '1988-07-10', 'alex@example.com', 3456789012, NULL, 1, '2024-02-26', '2024-02-26'),
 (4, 'Елена', 'Смирнова', 'Ивановна', 'elena', 'Elena123@', '1995-05-20', 'elena@example.com', 4567890123, NULL, 1, '2024-02-26', '2024-02-26'),
 (5, 'Мария', 'Кузнецова', 'Петровна', 'maria', 'Maria123@', '1993-09-08', 'maria@example.com', 5678901234, NULL, 1, '2024-02-26', '2024-02-26'),
-(6, 'Анна', 'Новикова', 'Алексеевна', 'anna', 'Anna123@', '1991-11-30', 'anna@example.com', 6789012345, NULL, 1, '2024-02-26', '2024-02-26'),
+(6, 'Анна', 'Новикова', 'Алексеевна', 'anna', 'Anna123@', '1991-11-30', 'anna@example.com', 6789012345, '$2y$10$vVbX5c08sLboDBoHWjZ5iuxTQ.04554hyX3wEUUAck5UM/jVCw7Ju', 1, '2024-02-26', '2024-02-26'),
 (7, 'Сергей', 'Морозов', 'Владимирович', 'sergey', 'Sergey123@', '1987-12-05', 'sergey@example.com', 7890123456, NULL, 1, '2024-02-26', '2024-02-26'),
 (8, 'savayaqu', 'savayaqu', 'savayaqu', 'savayaqu', 'savayaqu1!', '2001-01-01', 'savayaqu@mail.ru', 88005553535, '666', 2, '2024-02-26', '2024-02-26');
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES

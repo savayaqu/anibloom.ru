@@ -43,12 +43,13 @@ class CartController extends Controller
             ->first();
         // Проверка на существование товара
         $product = Product::find($productId);
-        // Получение доступного количества товара из базы данных
-        $availableQuantity = $product->quantity;
+
         // Проверяем, найден ли товар в корзине
         if (!$cartItem) {
             throw new ApiException(404, 'Товар не найден в вашей корзине');
         }
+        // Получение доступного количества товара из базы данных
+        $availableQuantity = $product->quantity;
         // Проверяем, существует ли уже запись для этого товара в корзине пользователя
         $existingCartItem = $user->cart()->where('product_id', $product->id)->first();
         // Проверяем, чтобы новое количество было положительным числом и не было больше того, что в хранится в БД
@@ -82,11 +83,12 @@ class CartController extends Controller
         $quantity = $request->input('quantity', 1);
         // Проверка, что количество товара больше 0
         if ($quantity <= 0) {
-            return response()->json(['error' => 'Количество товара должно быть больше 0'], 400);
+            throw new ApiException(400, 'Количество товара должно быть больше 0');
         }
         // Проверка, что запрошенное количество товара не превышает доступное количество
         if ($quantity > $availableQuantity) {
-            return response()->json(['error' => 'Недостаточное количество товара в наличии'], 400);
+            throw new ApiException(400, 'Недостаточное количество товара в наличии');
+
         }
         // Проверяем, существует ли уже запись для этого товара в корзине пользователя
         $existingCartItem = $user->cart()->where('product_id', $product->id)->first();

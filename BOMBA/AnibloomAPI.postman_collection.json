@@ -18,6 +18,10 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Регистрация прошла успешно\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -183,7 +187,10 @@
 									"pm.test(\"Status code is 401\", function () {\r",
 									"    pm.response.to.have.status(401);\r",
 									"});\r",
-									""
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Ошибка аутентификации\");\r",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -335,6 +342,11 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"cart_items\");\r",
+									"    pm.expect(jsonData).to.have.property(\"total\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -358,6 +370,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Продукт добавлен в корзину\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -390,6 +406,10 @@
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Товар не найден\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -422,6 +442,10 @@
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Недостаточное количество товара в наличии\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -454,6 +478,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Количество товара в корзине успешно обновлено\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -525,6 +553,10 @@
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Количество товара должно быть положительным числом\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -557,6 +589,10 @@
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Not Found\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Товар не найден в вашей корзине\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -565,11 +601,17 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"product_id\": 1,\r\n\"quantity\": 999\r\n}\r\n",
+							"raw": "{\r\n\"product_id\": 1000,\r\n\"quantity\": 5\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -589,6 +631,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Заказ успешно оформлен\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -621,6 +667,10 @@
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Не удалось оформить заказ, возможно, ваша корзина пуста\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -653,6 +703,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Отзыв успешно сохранен\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -685,6 +739,10 @@
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Вы не можете оставить отзыв на товар, который вы не покупали\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -715,8 +773,12 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 403\", function () {\r",
-									"    pm.response.to.have.status(403);\r",
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Вы уже оставили отзыв на этот товар\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -788,6 +850,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Профиль успешно обновлен\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -820,6 +886,10 @@
 								"exec": [
 									"pm.test(\"Status code is 422\", function () {\r",
 									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -852,6 +922,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"data\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1027,6 +1101,12 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{api_token}}"
+							}
+						},
 						"method": "GET",
 						"header": [],
 						"url": "{{host}}/logout"
@@ -1105,6 +1185,10 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Категория успешно создана\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1177,7 +1261,10 @@
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
 									"});\r",
-									""
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1188,7 +1275,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{api_token}}"
+								"token": "{{token}}"
 							}
 						},
 						"method": "POST",
@@ -1215,6 +1302,10 @@
 								"exec": [
 									"pm.test(\"Status code is 422\", function () {\r",
 									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1247,6 +1338,10 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Продукт успешно создан\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1318,6 +1413,10 @@
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1329,7 +1428,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{api_token}}"
+								"token": "{{token}}"
 							}
 						},
 						"method": "POST",
@@ -1356,6 +1455,10 @@
 								"exec": [
 									"pm.test(\"Status code is 422\", function () {\r",
 									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1386,7 +1489,7 @@
 					"response": []
 				},
 				{
-					"name": "ProductEdit",
+					"name": "ProductEdit200",
 					"event": [
 						{
 							"listen": "test",
@@ -1394,6 +1497,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Товар успешно обновлен\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1465,6 +1572,10 @@
 								"exec": [
 									"pm.test(\"Status code is 422\", function () {\r",
 									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Продукт с таким именем уже существует\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1483,7 +1594,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\" : 1,\r\n  \"name\": \"\",\r\n  \"price\": \"dfsdfsf\",\r\n  \"quantity\": 0,\r\n  \"category_id\": 0 \r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Отредактированный Товар\",\r\n  \"price\": 999,\r\n  \"quantity\": 10,\r\n  \"category_id\": 1\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1503,6 +1614,10 @@
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1514,7 +1629,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{api_token}}"
+								"token": "{{token}}"
 							}
 						},
 						"method": "POST",
@@ -1533,7 +1648,50 @@
 					"response": []
 				},
 				{
-					"name": "Category",
+					"name": "ProductEdit404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Товар не найден\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{admin_api_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Отредактированный Товар\",\r\n  \"price\": 999,\r\n  \"quantity\": 10,\r\n  \"category_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/product/1000/edit"
+					},
+					"response": []
+				},
+				{
+					"name": "Category200",
 					"event": [
 						{
 							"listen": "test",
@@ -1541,6 +1699,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Категория успешно обновлена\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1565,7 +1727,161 @@
 					"response": []
 				},
 				{
-					"name": "Category",
+					"name": "Category422",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Unprocessable Content\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Категория с таким именем уже существует\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Измененная манга\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/category/1/edit"
+					},
+					"response": []
+				},
+				{
+					"name": "Category404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Категория не найдена\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Измененная манга\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/category/999/edit"
+					},
+					"response": []
+				},
+				{
+					"name": "Category403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"pm.test(\"Forbidden for you\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Измененная манга\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/category/999/edit"
+					},
+					"response": []
+				},
+				{
+					"name": "Category401",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Unauthorized\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Измененная манга\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/category/999/edit"
+					},
+					"response": []
+				},
+				{
+					"name": "Category200",
 					"event": [
 						{
 							"listen": "test",
@@ -1573,6 +1889,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Категория успешно удалена\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1588,7 +1908,104 @@
 					"response": []
 				},
 				{
-					"name": "Product",
+					"name": "Category401",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Unauthorized\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{host}}/admin/category/5/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Category403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{host}}/admin/category/5/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Category404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Категория не найдена\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{admin_api_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{host}}/admin/category/999/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Product200",
 					"event": [
 						{
 							"listen": "test",
@@ -1596,6 +2013,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Продукт успешно удален\");\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1616,6 +2037,124 @@
 							}
 						},
 						"url": "{{host}}/admin/product/28/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Product401",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Unauthorized\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Отредактированный Товар\",\r\n  \"price\": 999,\r\n  \"quantity\": 10,\r\n  \"category_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/product/28/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Product403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Отредактированный Товар\",\r\n  \"price\": 999,\r\n  \"quantity\": 10,\r\n  \"category_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/product/28/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Product404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Unauthorized\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Продукт не найден\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Отредактированный Товар\",\r\n  \"price\": 999,\r\n  \"quantity\": 10,\r\n  \"category_id\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/admin/product/999/delete"
 					},
 					"response": []
 				}
@@ -1685,6 +2224,11 @@
 		},
 		{
 			"key": "api_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
 			"value": "",
 			"type": "string"
 		}

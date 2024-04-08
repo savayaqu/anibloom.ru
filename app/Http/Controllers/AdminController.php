@@ -27,15 +27,12 @@ class AdminController extends Controller
         if ($existingCategory) {
             throw new ApiException(422, 'Категория с таким именем уже существует');
         }
-
         // Создаем новую категорию
         $category = new Category([
             'name' => $request->input('name'),
         ]);
-
         // Сохраняем категорию в базе данных
         $category->save();
-
         // Возвращаем успешный ответ
         return response()->json(['message' => 'Категория успешно создана'], 201);
     }
@@ -47,16 +44,12 @@ class AdminController extends Controller
         if ($existingProduct) {
             throw new ApiException(422, 'Продукт с таким именем уже существует');
         }
-
         // Создаем новый продукт
         $product = new Product($request->all());
-
         // Сохраняем продукт в базе данных
         $product->save();
-
         // Получаем ID только что созданного продукта
         $productId = $product->id;
-
         // Проверяем, загружен ли файл
         if ($request->hasFile('photo')) {
             // Получаем файл из запроса
@@ -67,17 +60,12 @@ class AdminController extends Controller
             $fileName = $productId . '.' . $file->getClientOriginalExtension(); // Получение расширения оригинального файла
             // Сохраняем файл на сервере
             $filePathToPlace = $file->storeAs($filePath, $fileName);
-
             // Проверяем успешность сохранения файла
             if ($fileName) {
                 // Файл успешно сохранен, продолжаем сохранение продукта с указанием имени файла
                 $product->photo = $filePathToPlace; // Сохраняем путь до файла
-
                 Storage::putFileAs('public/' . $filePath, $file, $fileName);
-
-
                 $product->save();
-
                 return response()->json(['message' => 'Продукт успешно создан'], 201);
             } else {
                 // Если возникла ошибка при сохранении файла
@@ -90,20 +78,20 @@ class AdminController extends Controller
     }
     //Метод обновления категории
     public function updateCategory(CategoryUpdateRequest $request, $id)
-    { // Проверяем, есть ли категория с таким именем уже в базе данных
-        $existingCategory = Category::where('name', $request->input('name'))->first();
-        if ($existingCategory) {
-            throw new ApiException(422, 'Категория с таким именем уже существует');
-        }
+    {
         //Проверка существования
         $category = Category::find($id);
         if (!$category) {
             throw new ApiException(404, 'Категория не найдена');
         }
+        // Проверяем, есть ли категория с таким именем уже в базе данных
+        $existingCategory = Category::where('name', $request->input('name'))->first();
+        if ($existingCategory) {
+            throw new ApiException(422, 'Категория с таким именем уже существует');
+        }
         $category->name = $request->input('name');
         $category->save();
         return response()->json(['message' => 'Категория успешно обновлена'], 200);
-
     }
     //Метод обновления товара
     public function updateProduct(ProductUpdateRequest $request, $id)
@@ -133,8 +121,6 @@ class AdminController extends Controller
             if($product->photo != NULL)Storage::delete($product->photo);
             // Сохраняем файл на сервере
             Storage::putFileAs('public/' . $filePath, $file, $fileName);
-
-
             $filePathToPlace = $file->storeAs($filePath, $fileName);
             $product->photo = $filePathToPlace; // Сохраняем путь до файла
         }
