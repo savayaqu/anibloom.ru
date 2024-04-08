@@ -24,10 +24,10 @@ class UserCreateRequest extends ApiRequest
         return [
             'name'          => 'required|string|max:64',
             'surname'       => 'required|string|max:64',
-            'patronymic'    =>          'string|max:64',
+            'patronymic'    =>          'nullable|string|max:64',
             'login'         => 'required|string|min:5|max:64|unique:users',
             'password'      => 'required|string|min:8|max:64|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
-            'birth'         => 'required|date|date_format:Y-m-d|before_or_equal:2010-01-01',
+            'birth'         => 'required|date|date_format:Y-m-d|before_or_equal:2010-01-01|after_or_equal:1930-01-01',
             'email'         => 'required|email|max:64|unique:users',
             'telephone'     => 'required|integer|digits_between:1,20|unique:users',
         ];

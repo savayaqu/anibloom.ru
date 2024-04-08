@@ -23,15 +23,17 @@ class UserUpdateRequest extends ApiRequest
      */
     public function rules()
     {
+        $user = auth()->user();
+
         return [
             'name'          => 'string|max:64',
             'surname'       => 'string|max:64',
-            'patronymic'    => 'string|max:64',
-            'login'         => 'string|min:5|max:64|unique:users',
+            'patronymic'    => 'nullable|string|max:64',
+            'login'         => 'string|min:5|max:64|unique:users,login,'.$user->id,
             'password'      => 'string|min:8|max:64|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'birth'         => 'date|date_format:Y-m-d|before_or_equal:2010-01-01',
-            'email'         => 'email|max:64|unique:users',
-            'telephone'     => 'integer|digits_between:1,20|unique:users',
+            'email'         => 'email|max:64|unique:users,email,'.$user->id,
+            'telephone'     => 'integer|digits_between:1,20|unique:users,telephone,'.$user->id,
         ];
     }
     public function messages()
