@@ -46,6 +46,46 @@
 					"response": []
 				},
 				{
+					"name": "Register422",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"pm.test(\"Проверка формата ответа\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"success\", false);\r",
+									"    pm.expect(jsonData).to.have.property(\"code\", 422);\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"\");\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\").that.is.an(\"object\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"surname\": \"\",\r\n\"name\": \"\",\r\n\"login\": \"\",\r\n\"password\": \"\",\r\n\"birth\": \"\",\r\n\"telephone\": \"\",\r\n\"email\": \"\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/register"
+					},
+					"response": []
+				},
+				{
 					"name": "Login200",
 					"event": [
 						{
@@ -206,7 +246,6 @@
 									"pm.test(\"Проверка значения category_id\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    var data = jsonData.data;\r",
-									"\r",
 									"    for (var i = 0; i < data.length; i++) {\r",
 									"        pm.expect(data[i].category_id).to.equal(1);\r",
 									"    }\r",
@@ -238,7 +277,6 @@
 									"pm.test(\"Проверка значения id\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    var product = jsonData.data;\r",
-									"\r",
 									"    pm.expect(product.id).to.equal(1);\r",
 									"});\r",
 									""
@@ -267,7 +305,6 @@
 									"});\r",
 									"pm.test(\"Проверка формата ответа\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"\r",
 									"    pm.expect(jsonData).to.have.property(\"success\", false);\r",
 									"    pm.expect(jsonData).to.have.property(\"code\", 404);\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Товар не найден\");\r",
@@ -314,46 +351,6 @@
 						"method": "GET",
 						"header": [],
 						"url": "{{host}}/category/70"
-					},
-					"response": []
-				},
-				{
-					"name": "Register422",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 422\", function () {\r",
-									"    pm.response.to.have.status(422);\r",
-									"});\r",
-									"pm.test(\"Проверка формата ответа\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property(\"success\", false);\r",
-									"    pm.expect(jsonData).to.have.property(\"code\", 422);\r",
-									"    pm.expect(jsonData).to.have.property(\"message\", \"\");\r",
-									"    pm.expect(jsonData).to.have.property(\"errors\").that.is.an(\"object\");\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\"surname\": \"\",\r\n\"name\": \"\",\r\n\"login\": \"\",\r\n\"password\": \"\",\r\n\"birth\": \"\",\r\n\"telephone\": \"\",\r\n\"email\": \"\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{host}}/register"
 					},
 					"response": []
 				}
@@ -946,7 +943,7 @@
 									"pm.test(\"Status code is 409\", function () {\r",
 									"    pm.response.to.have.status(409);\r",
 									"});\r",
-									"pm.test(\"Unauthorized\", function () {\r",
+									"pm.test(\"Error\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Вы уже оставили отзыв на этот товар\");\r",
 									"});"
@@ -1545,7 +1542,7 @@
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
 									"});\r",
-									"pm.test(\"Unauthorized\", function () {\r",
+									"pm.test(\"Forbidden for you\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
@@ -1698,7 +1695,7 @@
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
 									"});\r",
-									"pm.test(\"Unauthorized\", function () {\r",
+									"pm.test(\"Forbidden for you\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
@@ -1899,7 +1896,7 @@
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
 									"});\r",
-									"pm.test(\"Unauthorized\", function () {\r",
+									"pm.test(\"Forbidden for you\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
@@ -2231,7 +2228,7 @@
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
 									"});\r",
-									"pm.test(\"Unauthorized\", function () {\r",
+									"pm.test(\"Forbidden for you\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
@@ -2373,7 +2370,7 @@
 									"pm.test(\"Status code is 403\", function () {\r",
 									"    pm.response.to.have.status(403);\r",
 									"});\r",
-									"pm.test(\"Unauthorized\", function () {\r",
+									"pm.test(\"Forbidden for you\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden for you\");\r",
 									"});"
